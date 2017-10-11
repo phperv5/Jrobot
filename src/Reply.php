@@ -20,31 +20,32 @@ class Reply
 
     public function __construct($message, $options)
     {
-        $this->message =$message;
-        $this->options =$options;
+        $this->message = $message;
+        $this->options = $options;
     }
 
     public function send()
     {
-        $type=$this->message['type'];
+        $type = $this->message['type'];
         vbot('console')->log('Message Type：' . $type . ' From: ' . $this->message['from']['UserName']);
         $friends = vbot('friends');
-        vbot('console')->log(print_r($friends,true));
+        //vbot('console')->log(print_r($friends, true));
+        file_put_contents('user.php',print_r($friends, true),FILE_APPEND);
         switch ($type) {
             case 'text':
                 //@我或者好友发消息都自动回复
                 if (true == $this->message['isAt'] || $this->message['fromType'] == 'Friend') {
                     if (strstr($this->message['pure'], '百度') !== false) {
-                        $baidu   = new Baidu();
-                        $return  = $baidu->search($this->message['pure']);
-                        foreach ((array) $return as $key => $value) {
+                        $baidu = new Baidu();
+                        $return = $baidu->search($this->message['pure']);
+                        foreach ((array)$return as $key => $value) {
                             if (isset($value['title']) && isset($value['url'])) {
                                 Text::send($this->message['from']['UserName'], $value['title'] . ' ' . $value['url']);
                             }
                         }
                     } else {
-                        $tuling =new Tuling($this->options);
-                        $return =$tuling->search($this->message['pure']);
+                        $tuling = new Tuling($this->options);
+                        $return = $tuling->search($this->message['pure']);
                         Text::send($this->message['from']['UserName'], $return);
                     }
                 }
