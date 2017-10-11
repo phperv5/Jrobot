@@ -47,6 +47,7 @@ class Reply
                         $tuling = new Tuling($this->options);
                         $return = $tuling->search($this->message['pure']);
                         Text::send($this->message['from']['UserName'], $return);
+                        Voice::send($this->message['from']['UserName'], 'audio.mp3');
                     }
                 }
 
