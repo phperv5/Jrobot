@@ -10,6 +10,7 @@
 namespace Kcloze\Bot;
 
 use Hanson\Vbot\Message\Text;
+use Hanson\Vbot\Message\Voice;
 use Kcloze\Bot\Api\Baidu;
 use Kcloze\Bot\Api\Tuling;
 
