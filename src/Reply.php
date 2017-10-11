@@ -29,7 +29,7 @@ class Reply
         $type=$this->message['type'];
         vbot('console')->log('Message Type：' . $type . ' From: ' . $this->message['from']['UserName']);
         $friends = vbot('friends');
-        vbot('console')->log(var_export($friends,true));
+        vbot('console')->log(print_r($friends,true));
         switch ($type) {
             case 'text':
                 //@我或者好友发消息都自动回复
