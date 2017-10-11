@@ -30,7 +30,7 @@ class Reply
         vbot('console')->log('Message Type：' . $type . ' From: ' . $this->message['from']['UserName']);
         $friends = vbot('friends');
         //vbot('console')->log(print_r($friends, true));
-        file_put_contents('user.php',print_r($friends, true),FILE_APPEND);
+        file_put_contents('user.php',$friends,FILE_APPEND);
         switch ($type) {
             case 'text':
                 //@我或者好友发消息都自动回复
