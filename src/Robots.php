@@ -18,14 +18,14 @@ class Robots
 
     public function __construct($options)
     {
-        $this->options =$options;
+        $this->options = $options;
     }
 
     public function run()
     {
         $this->robot = new Vbot($this->options);
         $this->robot->messageHandler->setHandler(function ($message) {
-            $reply=new Reply($message, $this->options);
+            $reply = new Reply($message, $this->options);
             $reply->send();
         });
         $this->robot->server->serve();

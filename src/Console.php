@@ -11,8 +11,8 @@ namespace Kcloze\Bot;
 
 class Console
 {
-    public $logger    = null;
-    private $config   = [];
+    public $logger = null;
+    private $config = [];
 
     public function __construct($config)
     {
@@ -39,16 +39,16 @@ class Console
      *
      * @param [type] $signal
      */
-    public function stop($signal=SIGTERM)
+    public function stop($signal = SIGTERM)
     {
-        $masterPidFile=$this->config['path'] . Process::PID_FILE;
+        $masterPidFile = $this->config['path'] . Process::PID_FILE;
         if (file_exists($masterPidFile)) {
-            $ppid=file_get_contents($masterPidFile);
+            $ppid = file_get_contents($masterPidFile);
             if (empty($ppid)) {
                 exit('service is not running' . PHP_EOL);
             }
             if (function_exists('posix_kill')) {
-                $return=posix_kill($ppid, $signal);
+                $return = posix_kill($ppid, $signal);
                 if ($return) {
                     $this->logger->log('[pid: ' . $ppid . '] has been stopped success');
                 } else {
@@ -86,7 +86,7 @@ class Console
             $this->printHelpMessage();
             exit(1);
         }
-        $opt=$argv[1];
+        $opt = $argv[1];
         switch ($opt) {
             case 'start':
                 $this->start();
@@ -109,7 +109,7 @@ class Console
 
     public function printHelpMessage()
     {
-        $msg=<<<'EOF'
+        $msg = <<<'EOF'
 NAME
       run.php - manage swoole-bot
 

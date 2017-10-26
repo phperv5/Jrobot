@@ -62,6 +62,8 @@ class Kernel
 
         $this->vbot->config['session'] = $sessionKey;
         $this->vbot->config['session_key'] = 'session.'.$sessionKey;
+
+        var_dump($this->vbot->config['session']);
     }
 
     private function bootstrapException()

@@ -11,12 +11,12 @@ namespace Kcloze\Bot;
 
 class Process
 {
-    const PROCESS_NAME_LOG = ' php: swoole-bot'; //shell脚本管理标示
-    const PID_FILE         = 'master.pid';
+    const PROCESS_NAME_LOG = 'php: swoole-bot'; //shell脚本管理标示
+    const PID_FILE = 'master.pid';
     private $reserveProcess;
     private $workers;
     private $workNum = 1;
-    private $config  = [];
+    private $config = [];
 
     public function __construct($config)
     {
@@ -27,7 +27,7 @@ class Process
     public function start()
     {
         \Swoole\Process::daemon(true, true);
-        isset($config['swoole']['workNum']) && $this->workNum=$config['swoole']['workNum'];
+        isset($config['swoole']['workNum']) && $this->workNum = $config['swoole']['workNum'];
 
         //根据配置信息，开启多个进程
         for ($i = 0; $i < $this->workNum; $i++) {
@@ -48,7 +48,7 @@ class Process
             //设置进程名字
             $this->setProcessName('job ' . $workNum . self::PROCESS_NAME_LOG);
             try {
-                $self->config['session']='swoole-bot' . $workNum;
+                $self->config['session'] = 'swoole-bot' . $workNum;
                 $job = new Robots($self->config);
                 $job->run();
             } catch (Exception $e) {
@@ -57,7 +57,7 @@ class Process
 
             echo 'reserve process ' . $workNum . " is working ...\n";
         });
-        $pid                 = $reserveProcess->start();
+        $pid = $reserveProcess->start();
         $this->workers[$pid] = $reserveProcess;
         echo "reserve start...\n";
     }
@@ -72,11 +72,11 @@ class Process
             while (true) {
                 $ret = \Swoole\Process::wait(false);
                 if ($ret) {
-                    $pid           = $ret['pid'];
+                    $pid = $ret['pid'];
                     $child_process = $workers[$pid];
                     //unset($workers[$pid]);
                     echo "Worker Exit, kill_signal={$ret['signal']} PID=" . $pid . PHP_EOL;
-                    $new_pid           = $child_process->start();
+                    $new_pid = $child_process->start();
                     $workers[$new_pid] = $child_process;
                     unset($workers[$pid]);
                 } else {
