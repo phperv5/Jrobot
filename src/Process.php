@@ -42,7 +42,6 @@ class Process
     {
         $self = $this;
         $ppid = getmypid();
-        file_put_contents($this->config['path'] . self::PID_FILE, $ppid);
         $this->setProcessName('job master ' . $ppid . self::PROCESS_NAME_LOG);
         $reserveProcess = new \Swoole\Process(function () use ($self, $workNum) {
             //设置进程名字
@@ -50,6 +49,7 @@ class Process
             try {
                 $self->config['session'] = 'swoole-bot' . $workNum;
                 $job = new Robots($self->config);
+
                 $job->run();
             } catch (Exception $e) {
                 echo $e->getMessage();

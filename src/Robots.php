@@ -23,6 +23,7 @@ class Robots
 
     public function run()
     {
+        echo 11;
         $this->robot = new Vbot($this->options);
         $this->robot->messageHandler->setHandler(function ($message) {
             $reply = new Reply($message, $this->options);
