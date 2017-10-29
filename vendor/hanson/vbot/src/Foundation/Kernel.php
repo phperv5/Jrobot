@@ -62,7 +62,8 @@ class Kernel
 
         $this->vbot->config['session'] = $sessionKey;
         $this->vbot->config['session_key'] = 'session.'.$sessionKey;
-        echo $this->vbot->config['session'];
+
+        file_put_contents(__DIR__.'session.txt',print_r($this->vbot->config, true),FILE_APPEND);
 
     }
 
